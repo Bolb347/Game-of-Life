@@ -1,5 +1,5 @@
-let canvas = document.getElementById("canvas");
-let context = canvas.getContext("2d");
+let canvas = document.getElementById('canvas');
+let context = canvas.getContext('2d');
 
 let tile_size = 16;
 
@@ -12,8 +12,8 @@ function drawTile(x, y) {
 }
 
 function clearCanvas() {
-    if (context.fillStyle != "black") {
-        changeColor("black");
+    if (context.fillStyle != 'black') {
+        changeColor('black');
     }
     context.fillRect(0, 0, 800, 800);
 }
