@@ -10,6 +10,23 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function drawLiveTile(x, y) {
+    if (context.fillStyle != 'white') {
+        changeColor('white');
+    }
+    context.fillRect(x, y, tile_size, tile_size);
+}
+
+function drawTiles() {
+    for (let x = 0; x < map_size; x ++) {
+        for (let y = 0; y < map_size; y ++) {
+            if (tile_array[x][y]) {
+                drawLiveTile(x * tile_size, y * tile_size);
+            }
+        }
+    }
+}
+
 function generateBlankArray(size) {
     blank = []
     for (let r = 0; r < size; r ++) {
@@ -24,13 +41,6 @@ function changeColor(color) {
     context.fillStyle = color;
 }
 
-function drawLiveTile(x, y) {
-    if (context.fillStyle != 'white') {
-        changeColor('white');
-    }
-    context.fillRect(x, y, tile_size, tile_size);
-}
-
 function clearCanvas() {
     if (context.fillStyle != 'black') {
         changeColor('black');
@@ -42,6 +52,7 @@ async function main() {
     generateBlankArray(map_size);
     while (true) {
         clearCanvas();
+        drawTiles();
         await sleep(100);
     }
 }
