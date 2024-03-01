@@ -1,10 +1,14 @@
-let canvas = document.getElementById('canvas');
-let context = canvas.getContext('2d');
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d');
 
-let tile_size = 16;
+const tile_size = 16;
 
 let tile_array = [];
-let map_size = 50;
+const map_size = 50;
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function generateBlankArray(size) {
     blank = []
@@ -37,7 +41,8 @@ function clearCanvas() {
 function main() {
     generateBlankArray(map_size);
     while (true) {
-        setTimeout(clearCanvas(), 100);
+        clearCanvas();
+        await sleep(100);
     }
 }
 
