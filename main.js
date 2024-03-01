@@ -65,6 +65,10 @@ function testNeighbors(x, y) {
         if (neighbor_count < 3) {
             tile_array[x][y] = 0;
         }
+    } else if (tile_array[x][y] === 0) {
+        if (neighbor_count === 3) {
+            tile_array[x][y] = 1;
+        }
     }
 }
 
