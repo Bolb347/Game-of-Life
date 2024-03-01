@@ -36,9 +36,9 @@ function clearCanvas() {
 
 function main() {
     generateBlankArray(map_size);
-    //while (true) {
-        clearCanvas();
-    //}
+    while (true) {
+        setTimeout(clearCanvas(), 100);
+    }
 }
 
 main();
