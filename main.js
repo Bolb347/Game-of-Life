@@ -3,7 +3,7 @@ const context = canvas.getContext('2d');
 
 context.imageSmoothingEnabled = false;
 
-const tile_size = 4;
+const tile_size = 16;
 
 let tile_array = [];
 const map_size = 50;
