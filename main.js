@@ -35,7 +35,7 @@ function generateBlankArray(size) {
         blank.push(r % 2);
     }
     for (let r = 0; r < size; r ++) {
-        tile_array.push(blank);
+        tile_array.push(blank.slice(0));
     }
 }
 
