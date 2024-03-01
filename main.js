@@ -3,10 +3,10 @@ const context = canvas.getContext('2d');
 
 context.imageSmoothingEnabled = false;
 
-const tile_size = 16;
+const tile_size = 4;
 
 let tile_array = [];
-const map_size = 50;
+const map_size = 200;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -29,7 +29,7 @@ function drawTiles() {
     }
 }
 
-function testNeighbors(x, y) {
+function testNeighbors(new_tile_array, x, y) {
     let neighbor_count = 0
     if (tile_array[x + 1] && tile_array[x + 1][y]) {
         neighbor_count ++;
@@ -57,14 +57,14 @@ function testNeighbors(x, y) {
     }
     if (tile_array[x][y]) {
         if (neighbor_count < 2) {
-            tile_array[x][y] = 0;
+            new_tile_array[x][y] = 0;
         }
         if (neighbor_count > 3) {
-            tile_array[x][y] = 0;
+            new_tile_array[x][y] = 0;
         }
     } else {
         if (neighbor_count === 3) {
-            tile_array[x][y] = 1;
+            new_tile_array[x][y] = 1;
         }
     }
 }
@@ -95,11 +95,13 @@ async function main() {
     while (true) {
         clearCanvas();
         drawTiles();
+        let new_tile_array = tile_array.slice(0).map((e) => e.slice(0));
         for (let x = 0; x < map_size; x ++) {
             for (let y = 0; y < map_size; y ++) {
-                testNeighbors(x, y);
+                testNeighbors(new_tile_array, x, y);
             }
         }
+        tile_array = new_tile_array;
         await sleep(100);
     }
 }
