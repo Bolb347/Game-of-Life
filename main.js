@@ -19,9 +19,9 @@ function clearCanvas() {
 }
 
 function main() {
-    while (true) {
+    //while (true) {
         clearCanvas();
-    }
+    //}
 }
 
 main();
