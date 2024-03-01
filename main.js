@@ -3,10 +3,10 @@ const context = canvas.getContext('2d');
 
 context.imageSmoothingEnabled = false;
 
-const tile_size = 4;
-
 let tile_array = [];
 const map_size = 200;
+
+const tile_size = canvas.width/map_size;
 
 const density = 0.5;
 
