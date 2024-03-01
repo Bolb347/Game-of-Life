@@ -30,7 +30,7 @@ function drawTiles() {
 function generateBlankArray(size) {
     blank = []
     for (let r = 0; r < size; r ++) {
-        blank.push(0);
+        blank.push(1);
     }
     for (let r = 0; r < size; r ++) {
         tile_array.push(blank);
