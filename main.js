@@ -11,5 +11,17 @@ function drawTile(x, y) {
     context.fillRect(x, y, tile_size, tile_size);
 }
 
-function main() {
+function clearCanvas() {
+    if (context.fillStyle != "black") {
+        changeColor("black");
+    }
+    context.fillRect(0, 0, 800, 800);
 }
+
+function main() {
+    while (true) {
+        clearCanvas();
+    }
+}
+
+main();
