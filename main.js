@@ -38,7 +38,7 @@ function clearCanvas() {
     context.fillRect(0, 0, 800, 800);
 }
 
-function main() {
+async function main() {
     generateBlankArray(map_size);
     while (true) {
         clearCanvas();
