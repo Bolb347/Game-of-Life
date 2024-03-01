@@ -3,6 +3,18 @@ let context = canvas.getContext('2d');
 
 let tile_size = 16;
 
+let tile_array = [];
+
+function generateBlankArray(size) {
+    blank = []
+    for (let r = 0; r < size; r ++) {
+        blank.push(0);
+    }
+    for (let r = 0; r < size; r ++) {
+        tile_array.push(blank);
+    }
+}
+
 function changeColor(color) {
     context.fillStyle = color;
 }
@@ -19,6 +31,7 @@ function clearCanvas() {
 }
 
 function main() {
+    generateBlankArray(50);
     //while (true) {
         clearCanvas();
     //}
