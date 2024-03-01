@@ -4,6 +4,7 @@ let context = canvas.getContext('2d');
 let tile_size = 16;
 
 let tile_array = [];
+let map_size = 50;
 
 function generateBlankArray(size) {
     blank = []
@@ -19,7 +20,10 @@ function changeColor(color) {
     context.fillStyle = color;
 }
 
-function drawTile(x, y) {
+function drawLiveTile(x, y) {
+    if (context.fillStyle != 'white') {
+        changeColor('white');
+    }
     context.fillRect(x, y, tile_size, tile_size);
 }
 
@@ -31,7 +35,7 @@ function clearCanvas() {
 }
 
 function main() {
-    generateBlankArray(50);
+    generateBlankArray(map_size);
     //while (true) {
         clearCanvas();
     //}
