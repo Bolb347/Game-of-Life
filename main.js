@@ -29,6 +29,45 @@ function drawTiles() {
     }
 }
 
+function testNeighbors(x, y) {
+    let neighbor_count = 0
+    if (tile_array[x + 1][y]) {
+        neighbor_count ++;
+    }
+    if (tile_array[x + 1][y + 1]) {
+        neighbor_count ++;
+    }
+    if (tile_array[x + 1][y - 1]) {
+        neighbor_count ++;
+    }
+    if (tile_array[x][y + 1]) {
+        neighbor_count ++;
+    }
+    if (tile_array[x][y - 1]) {
+        neighbor_count ++;
+    }
+    if (tile_array[x - 1][y]) {
+        neighbor_count ++;
+    }
+    if (tile_array[x - 1][y + 1]) {
+        neighbor_count ++;
+    }
+    if (tile_array[x - 1][y - 1]) {
+        neighbor_count ++;
+    }
+    if (tile_array[x][y]) {
+        if (neighbor_count < 2) {
+            tile_array[x][y] = 0;
+        }
+        if (neighbor_count === 2 || neighbor_count === 3) {
+            tile_array[x][y] = 1;
+        }
+        if (neighbor_count < 3) {
+            tile_array[x][y] = 0;
+        }
+    }
+}
+
 function generateBlankArray(size) {
     blank = []
     for (let r = 0; r < size; r ++) {
