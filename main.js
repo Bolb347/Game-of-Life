@@ -8,6 +8,8 @@ const tile_size = 4;
 let tile_array = [];
 const map_size = 200;
 
+const density = 0.5;
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -70,12 +72,12 @@ function testNeighbors(new_tile_array, x, y) {
 }
 
 function generateBlankArray(size) {
-    blank = []
     for (let r = 0; r < size; r ++) {
-        blank.push(Math.random()*0.7);
-    }
-    for (let r = 0; r < size; r ++) {
-        tile_array.push(blank.slice(0).map((e) => Math.round(e * Math.random())));
+        let blank = [];
+        for (let r = 0; r < size; r ++) {
+            blank.push(Math.random() * density);
+        }
+        tile_array.push(blank.slice(0).map((e) => Math.round(e + Math.random() * density)));
     }
 }
 
