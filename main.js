@@ -1,6 +1,8 @@
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 
+context.imageSmoothingEnabled = false;
+
 const tile_size = 16;
 
 let tile_array = [];
