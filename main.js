@@ -10,6 +10,31 @@ const tile_size = canvas.width/map_size;
 
 const density = 0.5;
 
+function getCursorPosition(event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    return [x, y];
+}
+
+function getRelativeNums(x, y) {
+    if (Math.round(x/tile_size) !== undefined) {
+        return [Math.round(x/tile_size), Math.round(y/tile_size)];
+    } else {
+        return undefined;
+    }
+}
+
+function checkClickedItem(event) {
+    const cursorPos = getCursorPosition(event);
+    const cursorHoveredNums = getRelativeNums(cursorPos[0], cursorPos[1]);
+    if (cursorHoveredNums !== undefined) {
+        tile_array[cursorHoveredNums[0]][cursorHoveredNums[1]] = 1;
+    }
+}
+
+canvas.addEventListener('mousedown', checkClickedItem);
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
