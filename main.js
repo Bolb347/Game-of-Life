@@ -6,7 +6,7 @@ context.imageSmoothingEnabled = false;
 let mouseDown = 0;
 
 let tile_array = [];
-const map_size = 25;
+const map_size = 200;
 
 const tile_size = canvas.width/map_size;
 
@@ -16,12 +16,12 @@ function getCursorPosition(event) {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    return [x, y];
+    return { x: x, y: y };
 }
 
 function getRelativeNums(x, y) {
     if (Math.round(x/tile_size) !== undefined) {
-        return [Math.round(x/tile_size), Math.round(y/tile_size)];
+        return { x: Math.round(x/tile_size), y: Math.round(y/tile_size) };
     } else {
         return undefined;
     }
@@ -30,9 +30,9 @@ function getRelativeNums(x, y) {
 function checkClickedItem(event) {
     if (mouseDown) {
         const cursorPos = getCursorPosition(event);
-        const cursorHoveredNums = getRelativeNums(cursorPos[0], cursorPos[1]);
+        const cursorHoveredNums = getRelativeNums(cursorPos.x, cursorPos.y);
         if (cursorHoveredNums !== undefined) {
-            tile_array[cursorHoveredNums[0]][cursorHoveredNums[1]] = 1;
+            tile_array[cursorHoveredNums.x][cursorHoveredNums.y] = 1;
         }
     }
 }
