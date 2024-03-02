@@ -105,7 +105,7 @@ async function main() {
             }
         }
         tile_array = new_tile_array;
-        await sleep(25);
+        await sleep(100);
     }
 }
 
