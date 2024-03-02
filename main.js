@@ -72,6 +72,7 @@ function testNeighbors(new_tile_array, x, y) {
 }
 
 function generateBlankArray(size) {
+    tile_array = []
     for (let r = 0; r < size; r ++) {
         let blank = [];
         for (let r = 0; r < size; r ++) {
@@ -104,7 +105,7 @@ async function main() {
             }
         }
         tile_array = new_tile_array;
-        await sleep(100);
+        await sleep(25);
     }
 }
 
