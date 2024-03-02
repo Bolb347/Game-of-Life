@@ -3,8 +3,10 @@ const context = canvas.getContext('2d');
 
 context.imageSmoothingEnabled = false;
 
+let mouseDown = 0;
+
 let tile_array = [];
-const map_size = 200;
+const map_size = 25;
 
 const tile_size = canvas.width/map_size;
 
@@ -26,14 +28,18 @@ function getRelativeNums(x, y) {
 }
 
 function checkClickedItem(event) {
-    const cursorPos = getCursorPosition(event);
-    const cursorHoveredNums = getRelativeNums(cursorPos[0], cursorPos[1]);
-    if (cursorHoveredNums !== undefined) {
-        tile_array[cursorHoveredNums[0]][cursorHoveredNums[1]] = 1;
+    if (mouseDown) {
+        const cursorPos = getCursorPosition(event);
+        const cursorHoveredNums = getRelativeNums(cursorPos[0], cursorPos[1]);
+        if (cursorHoveredNums !== undefined) {
+            tile_array[cursorHoveredNums[0]][cursorHoveredNums[1]] = 1;
+        }
     }
 }
 
-canvas.addEventListener('mousedown', checkClickedItem);
+canvas.addEventListener('mousemove', checkClickedItem);
+canvas.addEventListener('mousedown', () => mouseDown = 1);
+canvas.addEventListener('mouseup', () => mouseDown = 0);
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
