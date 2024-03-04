@@ -37,12 +37,12 @@ function checkClickedItem(event) {
     }
 }
 
-canvas.addEventListener('mousemove', checkClickedItem);
+canvas.addEventListener('mousemove', checkClickedItem); //allows dragging
 canvas.addEventListener('mousedown', () => mouseDown = 1);
 canvas.addEventListener('mouseup', () => mouseDown = 0);
 
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms)); //makes a promise with a timeout (pauses the code for some time)
 }
 
 function drawLiveTile(x, y) {
@@ -106,9 +106,9 @@ function generateBlankArray(size) {
     for (let r = 0; r < size; r ++) {
         let blank = [];
         for (let r = 0; r < size; r ++) {
-            blank.push(Math.random() * density);
+            blank.push(Math.random() * density); //generates a random array
         }
-        tile_array.push(blank.slice(0).map((e) => Math.round(e + Math.random() * density)));
+        tile_array.push(blank.slice(0).map((e) => Math.round(e + Math.random() * density))); //generates a random array
     }
 }
 
@@ -128,14 +128,14 @@ async function main() {
     while (true) {
         clearCanvas();
         drawTiles();
-        let new_tile_array = tile_array.slice(0).map((e) => e.slice(0));
+        let new_tile_array = tile_array.slice(0).map((e) => e.slice(0)); //duplicates the array
         for (let x = 0; x < map_size; x ++) {
             for (let y = 0; y < map_size; y ++) {
                 testNeighbors(new_tile_array, x, y);
             }
         }
         tile_array = new_tile_array;
-        await sleep(100);
+        await sleep(100); //defines the framerate
     }
 }
 
