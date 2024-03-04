@@ -11,7 +11,7 @@ const map_size = 200;
 const tile_size = canvas.width/map_size;
 
 const density = 0.5;
-
+/*
 function getCursorPosition(event) {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
@@ -40,7 +40,7 @@ function checkClickedItem(event) {
 canvas.addEventListener('mousemove', checkClickedItem); //allows dragging
 canvas.addEventListener('mousedown', () => mouseDown = 1);
 canvas.addEventListener('mouseup', () => mouseDown = 0);
-
+*/
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms)); //makes a promise with a timeout (pauses the code for some time)
 }
