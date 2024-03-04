@@ -44,7 +44,7 @@ canvas.addEventListener('mousedown', () => mouseDown = 1);
 canvas.addEventListener('mouseup', () => mouseDown = 0);
 */
 function generateBlankArray(size, x, y) {
-    let tile_array = [];
+    //let tile_array = [];
     for (let r = 0; r < size; r ++) {
         let blank = [];
         for (let r = 0; r < size; r ++) {
