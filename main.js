@@ -5,6 +5,8 @@ context.imageSmoothingEnabled = false;
 
 let mouseDown = 0;
 
+let chunk_array = [];
+
 let tile_array = [];
 const map_size = 200;
 
@@ -41,6 +43,18 @@ canvas.addEventListener('mousemove', checkClickedItem); //allows dragging
 canvas.addEventListener('mousedown', () => mouseDown = 1);
 canvas.addEventListener('mouseup', () => mouseDown = 0);
 */
+function generateBlankArray(size, x, y) {
+    let tile_array = [];
+    for (let r = 0; r < size; r ++) {
+        let blank = [];
+        for (let r = 0; r < size; r ++) {
+            blank.push(Math.random() * density); //generates a random array
+        }
+        tile_array.push(blank.slice(0).map((e) => Math.round(e + Math.random() * density))); //generates a random array
+    }
+    chunk_array.push( { tiles: blank.slice(0), x: x, y: y } );
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms)); //makes a promise with a timeout (pauses the code for some time)
 }
@@ -102,16 +116,6 @@ function testNeighbors(new_tile_array, x, y) {
     }
 }
 
-function generateBlankArray(size) {
-    for (let r = 0; r < size; r ++) {
-        let blank = [];
-        for (let r = 0; r < size; r ++) {
-            blank.push(Math.random() * density); //generates a random array
-        }
-        tile_array.push(blank.slice(0).map((e) => Math.round(e + Math.random() * density))); //generates a random array
-    }
-}
-
 function changeColor(color) {
     context.fillStyle = color;
 }
@@ -124,7 +128,7 @@ function clearCanvas() {
 }
 
 async function main() {
-    generateBlankArray(map_size);
+    generateBlankArray(map_size, 0, 0);
     while (true) {
         clearCanvas();
         drawTiles();
