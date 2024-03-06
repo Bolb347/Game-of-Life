@@ -13,47 +13,22 @@ const map_size = 200;
 const tile_size = canvas.width/map_size;
 
 const density = 0.5;
-/*
-function getCursorPosition(event) {
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    return { x: x, y: y };
+
+function copy(array) {
+    return array.map((e) => e.slice(0));
 }
 
-function getRelativeNums(x, y) {
-    if (Math.round(x/tile_size) !== undefined) {
-        return { x: Math.round(x/tile_size), y: Math.round(y/tile_size) };
-    } else {
-        return undefined;
-    }
-}
-
-function checkClickedItem(event) {
-    if (mouseDown) {
-        const cursorPos = getCursorPosition(event);
-        const cursorHoveredNums = getRelativeNums(cursorPos.x, cursorPos.y);
-        if (cursorHoveredNums !== undefined) {
-            tile_array[cursorHoveredNums.x][cursorHoveredNums.y] = 1;
-        }
-    }
-}
-
-canvas.addEventListener('mousemove', checkClickedItem); //allows dragging
-canvas.addEventListener('mousedown', () => mouseDown = 1);
-canvas.addEventListener('mouseup', () => mouseDown = 0);
-*/
 function generateBlankArray(size, x, y) {
     tile_array = [];
     for (let r = 0; r < size; r ++) {
         let blank = [];
-        for (let r = 0; r < size; r ++) {
+        for (let c = 0; c < size; c ++) {
             blank.push(Math.random() * density); //generates a random array
         }
         tile_array.push(blank.slice(0).map((e) => Math.round(e + Math.random() * density))); //generates a random array
     }
-    chunk_array.push( { tiles: tile_array.slice(0), x: x, y: y } );
-    return tile_array.slice(0);
+    chunk_array.push( { tiles: copy(tile_array), x: x, y: y } );
+    return copy(tile_array);
 }
 
 function getChunk(x, y) {
@@ -142,7 +117,7 @@ async function main() {
     while (true) {
         clearCanvas();
         drawTiles(tile_array);
-        let new_tile_array = tile_array.slice(0).map((e) => e.slice(0)); //duplicates the array
+        let new_tile_array = copy(tile_array);
         for (let x = 0; x < map_size; x ++) {
             for (let y = 0; y < map_size; y ++) {
                 testNeighbors(tile_array, new_tile_array, x, y);
