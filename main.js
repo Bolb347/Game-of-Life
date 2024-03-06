@@ -76,52 +76,52 @@ function drawLiveTile(x, y) {
     context.fillRect(x, y, tile_size, tile_size);
 }
 
-function drawTiles() {
+function drawTiles(array) {
     for (let x = 0; x < map_size; x ++) {
         for (let y = 0; y < map_size; y ++) {
-            if (tile_array[x] && tile_array[x][y]) {
+            if (array[x] && array[x][y]) {
                 drawLiveTile(x * tile_size, y * tile_size);
             }
         }
     }
 }
 
-function testNeighbors(new_tile_array, x, y) {
+function testNeighbors(array, new_array, x, y) {
     let neighbor_count = 0;
-    if (tile_array[x + 1] && tile_array[x + 1][y]) {
+    if (array[x + 1] && array[x + 1][y]) {
         neighbor_count ++;
     }
-    if (tile_array[x + 1] && tile_array[x + 1][y + 1]) {
+    if (array[x + 1] && array[x + 1][y + 1]) {
         neighbor_count ++;
     }
-    if (tile_array[x + 1] && tile_array[x + 1][y - 1]) {
+    if (array[x + 1] && array[x + 1][y - 1]) {
         neighbor_count ++;
     }
-    if (tile_array[x] && tile_array[x][y + 1]) {
+    if (array[x] && array[x][y + 1]) {
         neighbor_count ++;
     }
-    if (tile_array[x] && tile_array[x][y - 1]) {
+    if (array[x] && array[x][y - 1]) {
         neighbor_count ++;
     }
-    if (tile_array[x - 1] && tile_array[x - 1][y]) {
+    if (array[x - 1] && array[x - 1][y]) {
         neighbor_count ++;
     }
-    if (tile_array[x - 1] && tile_array[x - 1][y + 1]) {
+    if (array[x - 1] && array[x - 1][y + 1]) {
         neighbor_count ++;
     }
-    if (tile_array[x - 1] && tile_array[x - 1][y - 1]) {
+    if (array[x - 1] && array[x - 1][y - 1]) {
         neighbor_count ++;
     }
-    if (tile_array[x][y]) {
+    if (array[x][y]) {
         if (neighbor_count < 2) {
-            new_tile_array[x][y] = 0;
+            new_array[x][y] = 0;
         }
         if (neighbor_count > 3) {
-            new_tile_array[x][y] = 0;
+            new_array[x][y] = 0;
         }
     } else {
         if (neighbor_count === 3) {
-            new_tile_array[x][y] = 1;
+            new_array[x][y] = 1;
         }
     }
 }
@@ -145,7 +145,7 @@ async function main() {
         let new_tile_array = tile_array.slice(0).map((e) => e.slice(0)); //duplicates the array
         for (let x = 0; x < map_size; x ++) {
             for (let y = 0; y < map_size; y ++) {
-                testNeighbors(new_tile_array, x, y);
+                testNeighbors(tile_array, new_tile_array, x, y);
             }
         }
         tile_array = new_tile_array;
