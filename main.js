@@ -6,6 +6,7 @@ context.imageSmoothingEnabled = false;
 let mouseDown = 0;
 
 let chunk_array = [];
+let tile_array = [];
 
 const map_size = 200;
 
@@ -43,7 +44,7 @@ canvas.addEventListener('mousedown', () => mouseDown = 1);
 canvas.addEventListener('mouseup', () => mouseDown = 0);
 */
 function generateBlankArray(size, x, y) {
-    let tile_array = [];
+    tile_array = [];
     for (let r = 0; r < size; r ++) {
         let blank = [];
         for (let r = 0; r < size; r ++) {
@@ -86,7 +87,7 @@ function drawTiles() {
 }
 
 function testNeighbors(new_tile_array, x, y) {
-    let neighbor_count = 0
+    let neighbor_count = 0;
     if (tile_array[x + 1] && tile_array[x + 1][y]) {
         neighbor_count ++;
     }
@@ -137,7 +138,7 @@ function clearCanvas() {
 }
 
 async function main() {
-    let tile_array = generateBlankArray(map_size, 0, 0);
+    tile_array = generateBlankArray(map_size, 0, 0);
     while (true) {
         clearCanvas();
         drawTiles();
