@@ -52,7 +52,7 @@ function generateBlankArray(size, x, y) {
         tile_array.push(blank.slice(0).map((e) => Math.round(e + Math.random() * density))); //generates a random array
     }
     chunk_array.push( { tiles: tile_array.slice(0), x: x, y: y } );
-    return tile_array;
+    return tile_array.slice(0);
 }
 
 function getChunk(x, y) {
