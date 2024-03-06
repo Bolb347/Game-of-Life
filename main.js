@@ -7,7 +7,6 @@ let mouseDown = 0;
 
 let chunk_array = [];
 
-let tile_array = [];
 const map_size = 200;
 
 const tile_size = canvas.width/map_size;
@@ -44,7 +43,7 @@ canvas.addEventListener('mousedown', () => mouseDown = 1);
 canvas.addEventListener('mouseup', () => mouseDown = 0);
 */
 function generateBlankArray(size, x, y) {
-    //let tile_array = [];
+    let tile_array = [];
     for (let r = 0; r < size; r ++) {
         let blank = [];
         for (let r = 0; r < size; r ++) {
@@ -53,6 +52,16 @@ function generateBlankArray(size, x, y) {
         tile_array.push(blank.slice(0).map((e) => Math.round(e + Math.random() * density))); //generates a random array
     }
     chunk_array.push( { tiles: tile_array.slice(0), x: x, y: y } );
+    return tile_array;
+}
+
+function getChunk(x, y) {
+    for (let i; i < chunk_array.length; i ++) {
+        if (chunk_array[i].x == x && chunk_array[i].y == y) {
+            return chunk_array[i];
+        }
+    }
+    return generateBlankArray(x, y, map_size);
 }
 
 function sleep(ms) {
@@ -128,7 +137,7 @@ function clearCanvas() {
 }
 
 async function main() {
-    generateBlankArray(map_size, 0, 0);
+    let tile_array = generateBlankArray(map_size, 0, 0);
     while (true) {
         clearCanvas();
         drawTiles();
