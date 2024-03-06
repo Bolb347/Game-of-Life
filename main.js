@@ -141,7 +141,7 @@ async function main() {
     tile_array = generateBlankArray(map_size, 0, 0);
     while (true) {
         clearCanvas();
-        drawTiles();
+        drawTiles(tile_array);
         let new_tile_array = tile_array.slice(0).map((e) => e.slice(0)); //duplicates the array
         for (let x = 0; x < map_size; x ++) {
             for (let y = 0; y < map_size; y ++) {
