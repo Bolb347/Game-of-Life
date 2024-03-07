@@ -14,6 +14,9 @@ const tile_size = canvas.width/map_size;
 
 const density = 0.5;
 
+const chunkOffX = 0;
+const chunkOffY = 0;
+
 function copy(array) {
     return array.map((e) => e.slice(0));
 }
@@ -112,9 +115,26 @@ function clearCanvas() {
     context.fillRect(0, 0, 800, 800);
 }
 
+canvas.addEventListener("keydown", (event) => {
+    switch (event.key) {
+        case "ArrowUp":
+            chunkOffY ++;
+            break;
+        case "ArrowDown":
+            chunkOffY --;
+            break;
+        case "ArrowLeft":
+            chunkOffX --;
+            break;
+        case "ArrowRight":
+            chunkOffX ++;
+            break;
+    }
+    tile_array = getChunk(chunkOffX, chunkOffY);
+});
+
 async function main() {
     while (true) {
-        tile_array = getChunk(0, 0);
         clearCanvas();
         drawTiles(tile_array);
         let new_tile_array = copy(tile_array);
@@ -123,7 +143,7 @@ async function main() {
                 testNeighbors(tile_array, new_tile_array, x, y);
             }
         }
-        await sleep(100); //defines the framerate
+        await sleep(100);
     }
 }
 
