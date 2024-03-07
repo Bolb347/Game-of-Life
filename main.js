@@ -1,4 +1,5 @@
 const canvas = document.getElementById('canvas');
+canvas.focus();
 const context = canvas.getContext('2d');
 
 context.imageSmoothingEnabled = false;
@@ -14,8 +15,10 @@ const tile_size = canvas.width/map_size;
 
 const density = 0.5;
 
-const chunkOffX = 0;
-const chunkOffY = 0;
+let chunkOffX = 0;
+let chunkOffY = 0;
+
+let currentArray = [];
 
 function copy(array) {
     return array.map((e) => e.slice(0));
@@ -130,20 +133,21 @@ canvas.addEventListener("keydown", (event) => {
             chunkOffX ++;
             break;
     }
-    tile_array = getChunk(chunkOffX, chunkOffY);
+    current_array = getChunk(chunkOffX, chunkOffY);
 });
 
 async function main() {
+    current_array = getChunk(0, 0);
     while (true) {
         clearCanvas();
-        drawTiles(tile_array);
-        let new_tile_array = copy(tile_array);
+        drawTiles(current_array);
+        let new_tile_array = copy(current_array);
         for (let x = 0; x < map_size; x ++) {
             for (let y = 0; y < map_size; y ++) {
-                testNeighbors(tile_array, new_tile_array, x, y);
+                testNeighbors(current_array, new_tile_array, x, y);
             }
         }
-        await sleep(100);
+        await sleep(100); //defines the framerate
     }
 }
 
