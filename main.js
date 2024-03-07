@@ -18,30 +18,30 @@ function copy(array) {
     return array.map((e) => e.slice(0));
 }
 
-function generateBlankArray(size, x, y) {
-    tile_array = [];
-    for (let r = 0; r < size; r ++) {
+function generateBlankArray(x, y) {
+    let tile_array = [];
+    for (let r = 0; r < map_size; r ++) {
         let blank = [];
-        for (let c = 0; c < size; c ++) {
-            blank.push(Math.random() * density); //generates a random array
+        for (let c = 0; c < map_size; c ++) {
+            blank.push(Math.random() * density);
         }
-        tile_array.push(blank.slice(0).map((e) => Math.round(e + Math.random() * density))); //generates a random array
+        tile_array.push(blank.slice(0).map((e) => Math.round(e + Math.random() * density)));
     }
-    chunk_array.push( { tiles: copy(tile_array), x: x, y: y } );
-    return copy(tile_array);
+    chunk_array.push( { tiles: tile_array, x: x, y: y } );
+    return tile_array;
 }
 
 function getChunk(x, y) {
-    for (let i; i < chunk_array.length; i ++) {
+    for (let i = 0; i < chunk_array.length; i ++) {
         if (chunk_array[i].x == x && chunk_array[i].y == y) {
-            return chunk_array[i];
+            return chunk_array[i].tiles;
         }
     }
-    return generateBlankArray(x, y, map_size);
+    return generateBlankArray(x, y);
 }
 
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms)); //makes a promise with a timeout (pauses the code for some time)
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function drawLiveTile(x, y) {
@@ -63,40 +63,40 @@ function drawTiles(array) {
 
 function testNeighbors(array, new_array, x, y) {
     let neighbor_count = 0;
-    if (array[x + 1] && array[x + 1][y]) {
+    if (new_array[x + 1] && new_array[x + 1][y]) {
         neighbor_count ++;
     }
-    if (array[x + 1] && array[x + 1][y + 1]) {
+    if (new_array[x + 1] && new_array[x + 1][y + 1]) {
         neighbor_count ++;
     }
-    if (array[x + 1] && array[x + 1][y - 1]) {
+    if (new_array[x + 1] && new_array[x + 1][y - 1]) {
         neighbor_count ++;
     }
-    if (array[x] && array[x][y + 1]) {
+    if (new_array[x] && new_array[x][y + 1]) {
         neighbor_count ++;
     }
-    if (array[x] && array[x][y - 1]) {
+    if (new_array[x] && new_array[x][y - 1]) {
         neighbor_count ++;
     }
-    if (array[x - 1] && array[x - 1][y]) {
+    if (new_array[x - 1] && new_array[x - 1][y]) {
         neighbor_count ++;
     }
-    if (array[x - 1] && array[x - 1][y + 1]) {
+    if (new_array[x - 1] && new_array[x - 1][y + 1]) {
         neighbor_count ++;
     }
-    if (array[x - 1] && array[x - 1][y - 1]) {
+    if (new_array[x - 1] && new_array[x - 1][y - 1]) {
         neighbor_count ++;
     }
-    if (array[x][y]) {
+    if (new_array[x][y]) {
         if (neighbor_count < 2) {
-            new_array[x][y] = 0;
+            array[x][y] = 0;
         }
         if (neighbor_count > 3) {
-            new_array[x][y] = 0;
+            array[x][y] = 0;
         }
     } else {
         if (neighbor_count === 3) {
-            new_array[x][y] = 1;
+            array[x][y] = 1;
         }
     }
 }
@@ -113,8 +113,8 @@ function clearCanvas() {
 }
 
 async function main() {
-    tile_array = generateBlankArray(map_size, 0, 0);
     while (true) {
+        tile_array = getChunk(0, 0);
         clearCanvas();
         drawTiles(tile_array);
         let new_tile_array = copy(tile_array);
@@ -123,7 +123,6 @@ async function main() {
                 testNeighbors(tile_array, new_tile_array, x, y);
             }
         }
-        tile_array = new_tile_array;
         await sleep(100); //defines the framerate
     }
 }
